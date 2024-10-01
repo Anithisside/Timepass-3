@@ -1,29 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var noButton = document.getElementById('noButton');
-    var yesButton = document.getElementById('yesButton');
-    var finalPopup = document.getElementById('finalPopup');
+document.addEventListener('DOMContentLoaded', () => {
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const popup = document.getElementById('popup');
+    const finalPopup = document.getElementById('finalPopup');
 
-    noButton.addEventListener('mouseover', function() {
-        // Move the 'No' button randomly within the popup container
-        var popup = document.querySelector('.popup');
-        var popupRect = popup.getBoundingClientRect();
-        var buttonWidth = noButton.offsetWidth;
-        var buttonHeight = noButton.offsetHeight;
-
-        var maxX = popupRect.width - buttonWidth;
-        var maxY = popupRect.height - buttonHeight;
-
-        var randomX = Math.floor(Math.random() * maxX);
-        var randomY = Math.floor(Math.random() * maxY);
-
+    // Move 'No' button on hover
+    noButton.addEventListener('mouseenter', () => {
+        const popupWidth = popup.offsetWidth;
+        const popupHeight = popup.offsetHeight;
+        const newLeft = Math.random() * (popupWidth - noButton.offsetWidth);
+        const newTop = Math.random() * (popupHeight - noButton.offsetHeight);
         noButton.style.position = 'absolute';
-        noButton.style.left = randomX + 'px';
-        noButton.style.top = randomY + 'px';
+        noButton.style.left = `${newLeft}px`;
+        noButton.style.top = `${newTop}px`;
     });
 
-    yesButton.addEventListener('click', function() {
-        // Hide the first popup and show the final popup
-        document.getElementById('popup').style.display = 'none';
-        finalPopup.style.display = 'block';
+    // Show final message when Yes is clicked
+    yesButton.addEventListener('click', () => {
+        popup.style.display = 'none';
+        finalPopup.style.display = 'flex';
     });
-})
+});
